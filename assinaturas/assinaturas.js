@@ -293,10 +293,13 @@ ${phoneRow}
       return new URL(IMG_FOLDER + '/' + key + '.png', document.baseURI).href
     return CLIPBOARD_IMAGES[key]
   }
-  function richSignature() {
+  function richSignature(embedded = false) {
     return build().replace(
       /src="\.\.\/assets\/imagens\/(logo|facebook|instagram|linkedin)\.png"/g,
-      (_match, key) => 'src="' + esc(imageForTransfer(key)) + '"',
+      (_match, key) =>
+        'src="' +
+        esc(embedded ? CLIPBOARD_IMAGES[key] : imageForTransfer(key)) +
+        '"',
     )
   }
   function plainSignature() {
@@ -321,9 +324,8 @@ ${phoneRow}
   }
   // Realiza uma cópia rica na mesma pilha de execução do clique.
   // Fallback necessário para navegadores que negam navigator.clipboard.write.
-  function synchronousRichCopy() {
-    const html = richSignature(),
-      plain = plainSignature()
+  function synchronousRichCopy(html) {
+    const plain = plainSignature()
     const holder = document.createElement('div')
     holder.style.cssText = 'position:fixed;left:-9999px;top:0;width:550px;'
     holder.setAttribute('contenteditable', 'true')
@@ -354,12 +356,27 @@ ${phoneRow}
     }
     return succeeded
   }
-  function copySignature() {
+  function copySignature(embedded = false) {
     if (!validateAll()) return
+    const html = richSignature(embedded)
+    const successMessage = embedded
+      ? 'Cópia experimental realizada com imagens Base64. Cole em uma nova assinatura de teste no Outlook Web; a incorporação ao e-mail ainda precisa ser verificada.'
+      : 'Assinatura copiada com formatação. Cole no Outlook Web com Ctrl+V.'
+    function copyFailed(unavailable = false) {
+      state.classList.add('error')
+      if (embedded) {
+        state.textContent =
+          'Não foi possível copiar o HTML experimental. Nenhuma cópia com URLs externas foi usada como alternativa. Tente novamente em um navegador que permita copiar HTML formatado.'
+        return
+      }
+      selectForManualCopy()
+      state.textContent = unavailable
+        ? 'Cópia automática indisponível. Assinatura selecionada: pressione Ctrl+C e cole no Outlook Web com Ctrl+V.'
+        : 'Cópia automática bloqueada. Assinatura selecionada: pressione Ctrl+C e cole no Outlook Web com Ctrl+V.'
+    }
     // A tentativa síncrona é imediata: a ativação do clique ainda está disponível.
-    if (synchronousRichCopy()) {
-      state.textContent =
-        'Assinatura copiada com formatação. Cole no Outlook Web com Ctrl+V.'
+    if (synchronousRichCopy(html)) {
+      state.textContent = successMessage
       return
     }
     // Alternativa moderna em contexto seguro, sem aguardar nenhum passo prévio.
@@ -368,30 +385,26 @@ ${phoneRow}
       typeof navigator.clipboard.write === 'function' &&
       typeof ClipboardItem !== 'undefined'
     ) {
-      const item = new ClipboardItem({
-        'text/html': new Blob([richSignature()], { type: 'text/html' }),
-        'text/plain': new Blob([plainSignature()], { type: 'text/plain' }),
-      })
-      navigator.clipboard
-        .write([item])
-        .then(() => {
-          state.textContent =
-            'Assinatura copiada com formatação. Cole no Outlook Web com Ctrl+V.'
+      try {
+        const item = new ClipboardItem({
+          'text/html': new Blob([html], { type: 'text/html' }),
+          'text/plain': new Blob([plainSignature()], { type: 'text/plain' }),
         })
-        .catch(() => {
-          selectForManualCopy()
-          state.classList.add('error')
-          state.textContent =
-            'Cópia automática bloqueada. Assinatura selecionada: pressione Ctrl+C e cole no Outlook Web com Ctrl+V.'
-        })
+        navigator.clipboard
+          .write([item])
+          .then(() => {
+            state.textContent = successMessage
+          })
+          .catch(() => copyFailed())
+      } catch (_error) {
+        copyFailed()
+      }
     } else {
-      selectForManualCopy()
-      state.classList.add('error')
-      state.textContent =
-        'Cópia automática indisponível. Assinatura selecionada: pressione Ctrl+C e cole no Outlook Web com Ctrl+V.'
+      copyFailed(true)
     }
   }
-  el('selecionar').addEventListener('click', copySignature)
+  el('selecionar').addEventListener('click', () => copySignature())
+  el('copiar-incorporadas').addEventListener('click', () => copySignature(true))
   // Simulação local do fundo do e-mail. Não integra o HTML copiado ou exportado.
   function setPreviewTheme(theme) {
     previewArea.dataset.previewTheme = theme
