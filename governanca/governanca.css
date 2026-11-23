@@ -115,6 +115,23 @@
   margin-bottom: 0;
   width: 100%;
 }
+.download-panel .package-size {
+  margin-top: 12px;
+}
+.package-integrity summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding: 8px 0;
+}
+.package-integrity summary:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 4px;
+}
+.package-checksum {
+  display: block;
+  margin-top: 8px;
+  overflow-wrap: anywhere;
+}
 .skill-documentation {
   border-top: 1px solid var(--color-border);
   margin-top: 24px;

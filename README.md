@@ -3,7 +3,7 @@
 Portal estático em HTML, CSS e JavaScript puro, sem dependências de execução, backend, banco de dados ou processo de build. A entrada central oferece acesso a duas funcionalidades independentes:
 
 - **Assinaturas de e-mail:** gerador existente em `assinaturas/index.html`.
-- **Governança Documental:** apresentação, instalação e download oficial da Skill `governanca-documental-institucional` versão 1.0.0 em `/governanca/`.
+- **Governança Documental:** apresentação e download oficial do plugin v0.2.2, com a Skill `governanca-documental-institucional` v1.1.1 incorporada, em `/governanca/`.
 
 ## Gerador de assinaturas
 
@@ -20,19 +20,20 @@ Site estático para criação de assinaturas sem fundo da GF Innovation. A assin
 
 ## Hospedagem e implantação — GitHub Pages
 
-O portal está publicado em [johanngf.github.io/gf_email_assinaturas](https://johanngf.github.io/gf_email_assinaturas/), pelo **GitHub Pages**.
+O portal está publicado em [johanngf.github.io/gf_ferramentas_internas](https://johanngf.github.io/gf_ferramentas_internas/), pelo **GitHub Pages**. A página de Governança é [gf_ferramentas_internas/governanca/](https://johanngf.github.io/gf_ferramentas_internas/governanca/).
 
-Configuração real consultada pela API do GitHub Pages em 29/10/2026:
+Configuração real reconsultada pela API do GitHub Pages em **23/11/2026**:
 
 - Origem de publicação: branch **`master`**, diretório **`/` (raiz)**.
 - Publicação a partir de branch (`build_type: legacy`); não há workflow adicional de deploy criado neste projeto.
-- HTTPS habilitado e último estado consultado `built`.
+- HTTPS habilitado, sem domínio personalizado; estado `built`. Último build publicado: commit `30a06bda7cdde2a2a9447f43b40523c9b5b2559c`.
+- Página inicial e `/governanca/` responderam HTTP 200 na URL atual; o site publicado ainda representa a versão anterior, pois esta atualização permanece local.
 
 O site utiliza HTML, CSS e JavaScript estáticos, sem processo de build da aplicação. O arquivo `.nojekyll` é preservado para servir o conteúdo sem processamento Jekyll. Node e npm são utilizados somente nas ferramentas locais de lint e formatação.
 
 Em **Settings → Pages → Build and deployment**, a origem correspondente é **Deploy from a branch**, branch `master`, pasta `/(root)`. Esta revisão apenas consultou a configuração; não a modificou. Mudanças do portal só devem chegar à branch de produção após revisão e autorização. Não é necessário adicionar pipeline, GitHub Actions ou serviço de deploy.
 
-Os caminhos de navegação, CSS, scripts e imagens são relativos para funcionar sob o prefixo `/gf_email_assinaturas/` e em servidor HTTP local. Preserve os caminhos públicos das imagens usadas pelas assinaturas. Cloudflare Pages não é a hospedagem efetiva deste portal.
+Os caminhos de navegação, CSS, scripts e imagens são relativos para funcionar sob o prefixo atual `/gf_ferramentas_internas/` e em servidor HTTP local. A referência anterior a `/gf_email_assinaturas/` é histórica, não a URL vigente consultada. Preserve os caminhos públicos das imagens usadas pelas assinaturas. Cloudflare Pages não é a hospedagem efetiva deste portal.
 
 ## Arquivos
 
@@ -43,7 +44,7 @@ assinaturas/
   assinaturas.css               Estilos específicos do gerador
   assinaturas.js                Máscaras, validações, cópia e exportação
 governanca/
-  index.html                    Apresentação e template de distribuição da Skill
+  index.html                    Apresentação e download versionado do plugin
   governanca.css                Composição específica da página
 shared/
   base.css                      Identidade visual e elementos comuns às três páginas
@@ -114,28 +115,63 @@ Na implantação dessas ferramentas, `npm run check` passou sem erros. Uma verif
 
 A hospedagem efetiva é GitHub Pages, com origem na raiz de `master`, conforme a configuração verificada na seção de implantação. A navegação em diretórios (`/assinaturas/` e `/governanca/`) é relativa à raiz publicada do repositório. Esta revisão permanece em branch local própria e não altera a publicação nem a configuração de hospedagem.
 
-### Distribuição oficial da Skill
+### Distribuição atual — Plugin v0.2.2 / Skill v1.1.1
 
-A página `/governanca/` utiliza um link HTML direto para o ZIP instalável versionado, hospedado no repositório canônico da Skill. Nenhum pacote é copiado para o portal e nenhuma API ou JavaScript intermedeia o download.
+A página `/governanca/` aponta diretamente ao **ZIP original do plugin**, hospedado no repositório `johanngf/plugin_governanca_documental`. Não há cópia do pacote no portal, API intermediária, script de download nem ZIP derivado.
 
-- [Release estável e imutável v1.0.0](https://github.com/johanngf/skill_governanca_documental/releases/tag/v1.0.0).
-- [ZIP instalável oficial](https://github.com/johanngf/skill_governanca_documental/releases/download/v1.0.0/governanca-documental-institucional-v1.0.0.zip): `governanca-documental-institucional-v1.0.0.zip`, 248.808 bytes (aproximadamente 249 KB).
-- SHA-256: `68c408e8c8b5af7da1198856ffc4736d8df4e1f442b4177930f4a1918cd0c085`.
-- Commit da tag: `589a2970b9dab38859a00bb9eff3810881eafde6`.
+- [Release oficial v0.2.2](https://github.com/johanngf/plugin_governanca_documental/releases/tag/v0.2.2), pública, estável e confirmada como Latest no GitHub em 23/11/2026. Essa marcação não comprova publicação no Diretório de Plugins do ChatGPT.
+- [Instalável exato e versionado](https://github.com/johanngf/plugin_governanca_documental/releases/download/v0.2.2/Governanca_Documental_Plugin_Importavel_v0.2.2_ESTAVEL.zip): `Governanca_Documental_Plugin_Importavel_v0.2.2_ESTAVEL.zip`, **313.955 bytes**.
+- SHA-256: `dc5fab000eb67e8a0efcabc6681ea80e73fe3c845b394793f703ac7fc2ac4b4c`.
+- Commit da tag anotada `v0.2.2`: `b93245ae1a8667d451d64436103e8be3b1120bd1`.
+- [CI do commit aprovado](https://github.com/johanngf/plugin_governanca_documental/actions/runs/44599404522): concluído com sucesso, com evidência histórica de 59 testes aprovados, 1 ignorado e nenhuma falha. Esta atualização do portal não reexecuta a suíte do plugin.
+- [Documentação versionada](https://github.com/johanngf/plugin_governanca_documental/blob/v0.2.2/README.md). Os arquivos automáticos Source code (zip/tar.gz) não substituem o instalável acima; o botão não usa `/releases/latest` nem URL transitória.
 
-A documentação do pacote permanece no [README da tag v1.0.0](https://github.com/johanngf/skill_governanca_documental/blob/v1.0.0/README.md). As instruções do portal para ChatGPT Work preservam os rótulos de interface validados manualmente pelo responsável: **Plugins → Habilidades → Adicionar → Carregar do seu computador**. Instalação e funcionamento foram homologados em ChatGPT Plus com Work, no ambiente dos cenários H00–H07, com as ressalvas do [relatório](https://github.com/johanngf/skill_governanca_documental/blob/v1.0.0/tests/HOMOLOGACAO.md). A disponibilidade depende da conta e do ambiente; não há homologação de outras plataformas. Atualizações publicadas no GitHub não atualizam a instalação automaticamente. A página também fornece links para a documentação e o histórico de versões.
+O ZIP contém 31 arquivos sob `governanca-documental-plugin/`, incluindo os manifestos `plugin.json` e `.codex-plugin/plugin.json`, a Skill 1.1.1 e seus recursos. Os quatro DOCX canônicos são Contrato Operacional 0.8, Padronização Documental 3.5, Qualidade e Construção de Conteúdo 1.3 e Modelo Formal do Workflow 0.5. Markdown é consulta auxiliar; a Skill aplica as normas e não é uma quinta norma. O portal é referência complementar e não é necessário para executar o plugin.
 
-O acesso público autorizado ao pacote 1.0.0 não concede licença irrestrita nem autoriza automaticamente novos materiais ou versões futuras. O ZIP automático “Source code (zip)” não substitui o pacote instalável. Releases futuras só devem ser integradas após verificação específica, mantendo o endereço versionado, sem `latest`.
+### Instalação, atualização e limites
 
-A página apresenta instalação por plataforma em acordeões HTML nativos: ChatGPT (Work) aberto inicialmente e Claude fechado. O texto para Claude segue a [documentação oficial de uso](https://support.claude.com/pt/articles/12512180-usar-skills-no-claude), sem afirmar que a versão 1.0.0 foi instalada ou executada com sucesso nessa plataforma. Detalhes de integridade, homologação e direitos continuam nas fontes oficiais vinculadas; não competem com as ações principais da interface.
+A [documentação oficial de plugins do ChatGPT](https://help.openai.com/pt-br/articles/20001256-plugins-in-chatgpt), consultada em 23/11/2026, descreve upload pelo Console de administração para proprietários/administradores habilitados. O portal usa esse procedimento condicionado à disponibilidade. A [documentação de Skills](https://help.openai.com/pt-br/articles/20001066-skills-in-chatgpt) descreve outro fluxo, para Skill isolada; ele não é apresentado como instalação deste plugin.
 
-### Pendência de compatibilidade com Claude
+ChatGPT permanece em acordeão aberto inicialmente; Claude, fechado e identificado como **não homologado**, com passos condicionais de upload de plugin e seleção explícita da Skill por `/` ou `+`. A ausência de `.claude-plugin/plugin.json` no ZIP impede presumir aceitação. As fontes oficiais de [plugins](https://support.claude.com/pt/articles/13837440-usar-plugins-no-claude), [nova interface](https://support.claude.com/en/articles/17740565-manage-plugins-skills-and-connectors-from-one-plugins-page) e [Claude Code](https://code.claude.com/docs/en/plugins) foram consultadas nesta revisão. Não foi realizado teste atual de instalação em contas ChatGPT ou Claude, nem observação da interface autenticada. A disponibilidade depende da conta, do workspace, das permissões e do host. A publicação no GitHub não instala nem atualiza automaticamente ambientes consumidores; a atualização depende da instalação real e da plataforma.
 
-A versão 1.0.0 **não foi homologada no Claude**. A documentação [Como criar skills personalizadas](https://support.claude.com/en/articles/12512198-how-to-create-custom-skills) declara limite de 200 caracteres para `description`; o pacote oficial possui 360 caracteres nesse campo. Esse é um possível impedimento de upload, identificado por comparação estática, sem teste em uma conta Claude. Esse limite declarado não comprova, isoladamente, o comportamento do validador do Claude no navegador; a aceitação real exige avaliação específica. Não foi feita adaptação, alteração de metadados, reempacotamento ou mudança do ZIP imutável para contornar isso. As instruções de instalação do portal são condicionadas à aceitação do upload, e a observação de não validação permanece visível no acordeão e em seu título.
+A auditoria OOXML é parcial; a execução portátil depende de leitura íntegra, escrita, Python e acesso aos bytes do DOCX no host. A Skill não substitui controle, validação ou aprovação humana. Não há certificação universal, garantia de acionamento implícito ou nova homologação de Word para Web nesta etapa. O uso é institucional, com direitos reservados; acesso público não concede licença irrestrita de uso, modificação ou redistribuição.
 
-Esta revisão utiliza a branch local `feat/revisao-governanca-acordeoes`, sem commit, push, PR, merge ou publicação automática. O foco são as resoluções desktop; não foram adicionados breakpoints nem regras específicas para mobile.
+### Validação da atualização do portal para v0.2.2
 
-### Validação da revisão desktop e dos acordeões
+Base local: `master` / `origin/master` em `30a06bda7cdde2a2a9447f43b40523c9b5b2559c`, limpa antes da edição. Branch de trabalho: `feat/atualizar-portal-governanca-plugin-v0.2.2`. A configuração de Pages foi somente consultada; não houve push, PR, merge ou deploy nesta execução.
+
+As dependências de validação foram instaladas com `npm ci --cache /tmp/gf-governanca-plugin-v022-review-wmi4ijoi/npm-cache`, sem alterar `package-lock.json`. O npm apontou três vulnerabilidades moderadas nas dependências de desenvolvimento existentes; não foi executado `npm audit fix` nem adicionada dependência. O portal continua sem dependências de runtime.
+
+Critérios para repetir a revisão: executar `npm ci` e `npm run check`; servir a raiz por HTTP; conferir a página inicial e Governança em 1280, 768, 390 e 320 px, na raiz e sob `/gf_ferramentas_internas/`; validar headings, IDs, `aria-current`, links relativos, imagens, ausência de overflow global, abertura dos acordeões e do hash por teclado, foco visível e navegação. O botão deve conservar o endereço versionado acima. O SHA-256 deve quebrar dentro do cartão e permanecer selecionável, sem JavaScript adicional.
+
+Resultados observados nesta atualização: `npm run check` aprovado; Chrome headless 158.0.8127.36 com servidor HTTP local, 16 combinações de página/largura/prefixo e oito percursos de teclado aprovados. Sem overflow horizontal global, recursos locais com erro ou exceções JavaScript. Link de salto, Tab, foco visível sem encobrimento e abertura/fechamento dos três controles nativos por Enter/Espaço conferidos. A árvore de acessibilidade mostrou os estados de expansão esperados. Capturas produzidas nas quatro larguras, com inspeção visual adicional em 1280 e 320 px; o hash aberto permaneceu dentro do cartão.
+
+Quatro destinos externos da página retornaram HTTP 200, incluindo o ZIP e a documentação de plugins. A página HTML do README versionado retornou HTTP 503 nas duas tentativas deste ambiente; a conexão GitHub confirmou o arquivo na tag v0.2.2. Essa limitação de acesso externo não foi tratada como download aprovado nem ocultada por troca de URL. A consulta da documentação não constitui observação da interface autenticada do ChatGPT.
+
+O script temporário e as evidências estão em `/tmp/gf-governanca-plugin-v022-review-wmi4ijoi/`, fora do conteúdo publicado. Enquanto disponíveis nesta sessão, os testes de navegador podem ser repetidos com Chrome e o módulo Python `websocket` já instalado:
+
+```sh
+python3 /tmp/gf-governanca-plugin-v022-review-wmi4ijoi/validate_browser.py --repo "$PWD" --output /tmp/gf-governanca-plugin-v022-review-wmi4ijoi
+```
+
+Não houve teste com leitor de tela, outros navegadores, importação do plugin ou nova homologação institucional. No gerador de assinaturas foi verificada somente a navegação e a inicialização; os fluxos de cópia/exportação não foram reexecutados. Seus arquivos, assets, a base compartilhada, o cartão de Assinaturas e o lockfile permaneceram inalterados. O site publicado ainda não contém estas alterações locais.
+
+O download anônimo real do asset foi realizado com Python/urllib, seguindo redirecionamentos; os bytes recebidos tinham exatamente **313955 bytes** e SHA-256 esperado. Não se trata apenas de conferência de metadados. O arquivo e as evidências locais ficam em `/tmp/gf-governanca-plugin-v022-review-wmi4ijoi/`, fora do repositório publicado. Para reconferir o arquivo já baixado nesta sessão:
+
+```sh
+wc -c /tmp/gf-governanca-plugin-v022-review-wmi4ijoi/Governanca_Documental_Plugin_Importavel_v0.2.2_ESTAVEL.zip
+sha256sum /tmp/gf-governanca-plugin-v022-review-wmi4ijoi/Governanca_Documental_Plugin_Importavel_v0.2.2_ESTAVEL.zip
+```
+
+### Histórico — Skill independente v1.0.0
+
+A [release v1.0.0](https://github.com/johanngf/plugin_governanca_documental/releases/tag/v1.0.0) e seu asset `governanca-documental-institucional-v1.0.0.zip` permanecem preservados. Tamanho histórico: 248.808 bytes; SHA-256 `68c408e8c8b5af7da1198856ffc4736d8df4e1f442b4177930f4a1918cd0c085`; commit `589a2970b9dab38859a00bb9eff3810881eafde6`. Eles não representam a distribuição corrente do plugin.
+
+Os cenários [H00–H07 e suas ressalvas](https://github.com/johanngf/plugin_governanca_documental/blob/v1.0.0/tests/HOMOLOGACAO.md) se referem à Skill independente e ao ambiente então testado. O fluxo antigo de upload de Skill e a análise estática de compatibilidade com Claude não comprovam a interface, aceitação ou instalação atual do plugin 0.2.2. Nenhuma adaptação ou reempacotamento foi realizado para o portal.
+
+Os registros abaixo preservam as verificações anteriores. Na revisão histórica dos acordeões foi usada a branch `feat/revisao-governanca-acordeoes`, com foco desktop; as afirmações e contagens seguintes pertencem àquela etapa, não a uma nova homologação do plugin.
+
+### Histórico — validação desktop e dos acordeões
 
 Nesta revisão local, foram verificadas as resoluções **1280 × 720**, **1366 × 768**, **1440 × 900** e **1920 × 1080**, na raiz do servidor e sob `/portal/`, em Chrome headless com contexto anônimo:
 
@@ -230,3 +266,15 @@ Documentação: [Microsoft — Assinaturas](https://support.microsoft.com/en-us/
 - O modo escuro do Outlook é controlado pelo aplicativo e pode modificar a forma de exibição, inclusive de cores explicitamente definidas; portanto teste **envio e recebimento reais** nos temas claro e escuro.
 
 Fonte oficial: https://support.microsoft.com/pt-br/outlook/mail/dark-mode-in-outlook
+
+### Revisão editorial enxuta
+
+A interface conserva o template original, com detalhes normativos remetidos à release, invocação explícita por menção e seleção real do plugin e recomendação de reinstalação apenas para instalação manual. Instalações gerenciadas seguem o administrador ou marketplace; remover não é exigência universal. As verificações da versão anterior acima são históricas; o registro da revisão atual fica em `/tmp/gf-governanca-plugin-v022-review-wmi4ijoi/`.
+
+### Revisão v3 — gate Claude
+
+A v3 substitui a orientação editorial anterior: recomendação explícita no card esquerdo; cinco etapas ChatGPT; aviso único de reinstalação e exemplo ao fim do card direito. O responsável declarou homologação funcional do Claude, sem novos ensaios nesta execução. Isso é distinto da compatibilidade do asset: o download direto foi reconferido (313955 bytes, SHA-256 exigido, 31 arquivos), sem `.claude-plugin/plugin.json`, requisito da documentação oficial de plugins da Anthropic. Portanto, as etapas de upload Claude foram retiradas provisoriamente e a página permanece **NO-GO para PR** até decisão sobre asset Claude-compatível separado e autorizado ou evidência concreta de outro procedimento aceito. Não foram criados pacotes ou alteradas releases. O registro `v3-claude-gate.json` está na pasta temporária de evidências indicada acima. As descrições de Claude nas revisões anteriores são históricas e foram substituídas por este gate.
+
+### Revisão v4 — instruções completas do Claude
+
+A v4 substitui o bloqueio editorial da v3: ambos os acordeões contêm cinco etapas, sem introdução ou status antes das listas. O fluxo Claude é homologado conforme declaração do responsável; a compatibilidade do ZIP principal é uma questão separada. A ausência de `.claude-plugin/plugin.json`, conferida nos bytes do asset, está informada em uma nota curta após os passos. Não há placeholder nem promessa de aceitação desse ZIP pelo Claude. A revisão pode seguir para PR com essa ressalva; publicar o portal com a nota ou aguardar um asset Claude-compatível separado continua sendo decisão humana. Nenhum pacote foi criado ou alterado. Os registros anteriores desta documentação são históricos e não substituem a decisão da v4.
