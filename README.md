@@ -132,13 +132,19 @@ O ZIP contém 31 arquivos sob `governanca-documental-plugin/`, incluindo os mani
 
 A [documentação oficial de plugins do ChatGPT](https://help.openai.com/pt-br/articles/20001256-plugins-in-chatgpt), consultada em 23/11/2026, descreve upload pelo Console de administração para proprietários/administradores habilitados. O portal usa esse procedimento condicionado à disponibilidade. A [documentação de Skills](https://help.openai.com/pt-br/articles/20001066-skills-in-chatgpt) descreve outro fluxo, para Skill isolada; ele não é apresentado como instalação deste plugin.
 
-ChatGPT permanece em acordeão aberto inicialmente; Claude, fechado e identificado como **não homologado**, com passos condicionais de upload de plugin e seleção explícita da Skill por `/` ou `+`. A ausência de `.claude-plugin/plugin.json` no ZIP impede presumir aceitação. As fontes oficiais de [plugins](https://support.claude.com/pt/articles/13837440-usar-plugins-no-claude), [nova interface](https://support.claude.com/en/articles/17740565-manage-plugins-skills-and-connectors-from-one-plugins-page) e [Claude Code](https://code.claude.com/docs/en/plugins) foram consultadas nesta revisão. Não foi realizado teste atual de instalação em contas ChatGPT ou Claude, nem observação da interface autenticada. A disponibilidade depende da conta, do workspace, das permissões e do host. A publicação no GitHub não instala nem atualiza automaticamente ambientes consumidores; a atualização depende da instalação real e da plataforma.
+O responsável informou em 24/11/2026 que testou o plugin no Claude com sucesso. O portal orienta usar o mesmo ZIP oficial v0.2.2 no ChatGPT e no Claude. O Codex não realizou teste independente de instalação ou execução nessas plataformas nesta correção. A disponibilidade depende da conta, do workspace, das permissões e da plataforma.
+
+O acordeão do ChatGPT começa aberto e o do Claude começa fechado. Para atualizar, recomendamos desinstalar ou remover a versão anterior do plugin e repetir o processo normal de instalação com o ZIP atual.
 
 A auditoria OOXML é parcial; a execução portátil depende de leitura íntegra, escrita, Python e acesso aos bytes do DOCX no host. A Skill não substitui controle, validação ou aprovação humana. Não há certificação universal, garantia de acionamento implícito ou nova homologação de Word para Web nesta etapa. O uso é institucional, com direitos reservados; acesso público não concede licença irrestrita de uso, modificação ou redistribuição.
 
-### Validação da atualização do portal para v0.2.2
+### Abertura dos links do portal
 
-Base local: `master` / `origin/master` em `30a06bda7cdde2a2a9447f43b40523c9b5b2559c`, limpa antes da edição. Branch de trabalho: `feat/atualizar-portal-governanca-plugin-v0.2.2`. A configuração de Pages foi somente consultada; não houve push, PR, merge ou deploy nesta execução.
+Os links externos das três páginas, incluindo o botão de download, usam `target="_blank"` e `rel="noopener noreferrer"`. O navegador pode iniciar o download diretamente. Os links entre páginas do portal, o link de salto para o conteúdo e outros fragmentos da mesma página permanecem na aba atual. Os links da assinatura gerada, inclusive os da prévia, seguem o comportamento do gerador e de seus formatos de cópia e exportação.
+
+### Histórico — validação da atualização do portal para v0.2.2
+
+Base local: `master` / `origin/master` em `30a06bda7cdde2a2a9447f43b40523c9b5b2559c`, limpa antes da edição. Branch de trabalho: `feat/atualizar-portal-governanca-plugin-v0.2.2`. Naquela etapa, a configuração de Pages foi consultada e a preparação permaneceu local.
 
 As dependências de validação foram instaladas com `npm ci --cache /tmp/gf-governanca-plugin-v022-review-wmi4ijoi/npm-cache`, sem alterar `package-lock.json`. O npm apontou três vulnerabilidades moderadas nas dependências de desenvolvimento existentes; não foi executado `npm audit fix` nem adicionada dependência. O portal continua sem dependências de runtime.
 
@@ -154,7 +160,7 @@ O script temporário e as evidências estão em `/tmp/gf-governanca-plugin-v022-
 python3 /tmp/gf-governanca-plugin-v022-review-wmi4ijoi/validate_browser.py --repo "$PWD" --output /tmp/gf-governanca-plugin-v022-review-wmi4ijoi
 ```
 
-Não houve teste com leitor de tela, outros navegadores, importação do plugin ou nova homologação institucional. No gerador de assinaturas foi verificada somente a navegação e a inicialização; os fluxos de cópia/exportação não foram reexecutados. Seus arquivos, assets, a base compartilhada, o cartão de Assinaturas e o lockfile permaneceram inalterados. O site publicado ainda não contém estas alterações locais.
+Não houve teste com leitor de tela, outros navegadores, importação do plugin ou nova homologação institucional. No gerador de assinaturas foi verificada somente a navegação e a inicialização; os fluxos de cópia/exportação não foram reexecutados. Seus arquivos, assets, a base compartilhada, o cartão de Assinaturas e o lockfile permaneceram inalterados. Na data daquela validação, a atualização ainda estava local. A atualização para o plugin 0.2.2 foi publicada posteriormente em `master` no commit `a370a9a2f7c8d7d189d6de3ded24a2711105a40c`. A correção dos hyperlinks e da orientação do Claude está em revisão local.
 
 O download anônimo real do asset foi realizado com Python/urllib, seguindo redirecionamentos; os bytes recebidos tinham exatamente **313955 bytes** e SHA-256 esperado. Não se trata apenas de conferência de metadados. O arquivo e as evidências locais ficam em `/tmp/gf-governanca-plugin-v022-review-wmi4ijoi/`, fora do repositório publicado. Para reconferir o arquivo já baixado nesta sessão:
 
@@ -267,14 +273,14 @@ Documentação: [Microsoft — Assinaturas](https://support.microsoft.com/en-us/
 
 Fonte oficial: https://support.microsoft.com/pt-br/outlook/mail/dark-mode-in-outlook
 
-### Revisão editorial enxuta
+### Histórico — revisão editorial enxuta
 
-A interface conserva o template original, com detalhes normativos remetidos à release, invocação explícita por menção e seleção real do plugin e recomendação de reinstalação apenas para instalação manual. Instalações gerenciadas seguem o administrador ou marketplace; remover não é exigência universal. As verificações da versão anterior acima são históricas; o registro da revisão atual fica em `/tmp/gf-governanca-plugin-v022-review-wmi4ijoi/`.
+A revisão manteve o template original, remeteu os detalhes normativos à release e orientou invocar o plugin explicitamente na conversa. A recomendação de atualização vigente está na seção Instalação, atualização e limites.
 
-### Revisão v3 — gate Claude
+### Histórico — revisão v3 do Claude
 
-A v3 substitui a orientação editorial anterior: recomendação explícita no card esquerdo; cinco etapas ChatGPT; aviso único de reinstalação e exemplo ao fim do card direito. O responsável declarou homologação funcional do Claude, sem novos ensaios nesta execução. Isso é distinto da compatibilidade do asset: o download direto foi reconferido (313955 bytes, SHA-256 exigido, 31 arquivos), sem `.claude-plugin/plugin.json`, requisito da documentação oficial de plugins da Anthropic. Portanto, as etapas de upload Claude foram retiradas provisoriamente e a página permanece **NO-GO para PR** até decisão sobre asset Claude-compatível separado e autorizado ou evidência concreta de outro procedimento aceito. Não foram criados pacotes ou alteradas releases. O registro `v3-claude-gate.json` está na pasta temporária de evidências indicada acima. As descrições de Claude nas revisões anteriores são históricas e foram substituídas por este gate.
+A v3 registrou a declaração do responsável sobre o funcionamento no Claude, sem ensaio independente. O download direto foi reconferido (313.955 bytes, SHA-256 esperado e 31 arquivos). O inventário do ZIP registrou a ausência de `.claude-plugin/plugin.json`. A análise estática da época levou à retirada provisória das etapas de upload e à suspensão da revisão para PR. O teste informado em 24/11/2026 superou essa decisão editorial.
 
-### Revisão v4 — instruções completas do Claude
+### Histórico — revisão v4 do Claude
 
-A v4 substitui o bloqueio editorial da v3: ambos os acordeões contêm cinco etapas, sem introdução ou status antes das listas. O fluxo Claude é homologado conforme declaração do responsável; a compatibilidade do ZIP principal é uma questão separada. A ausência de `.claude-plugin/plugin.json`, conferida nos bytes do asset, está informada em uma nota curta após os passos. Não há placeholder nem promessa de aceitação desse ZIP pelo Claude. A revisão pode seguir para PR com essa ressalva; publicar o portal com a nota ou aguardar um asset Claude-compatível separado continua sendo decisão humana. Nenhum pacote foi criado ou alterado. Os registros anteriores desta documentação são históricos e não substituem a decisão da v4.
+A v4 restaurou as cinco etapas de instalação e publicou uma ressalva sobre o manifesto ausente no ZIP. Após o teste informado pelo responsável em 24/11/2026, a orientação vigente passou a indicar o mesmo ZIP oficial para as duas plataformas. O pacote e a release foram preservados em todas essas revisões.
